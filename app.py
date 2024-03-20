@@ -30,8 +30,6 @@ app.layout = html.Div([ #parent div
     ]),
     #app description is below 
      dcc.Markdown('''
-        # Gapminder GDP Per Capita Analysis
-
         The app leverages the extensive Gapminder dataset, which encompasses a comprehensive collection of economic indicators, 
         including but not limited to the Gross Domestic Product (GDP) of most countries. GDP serves as the cornerstone metric for 
         evaluating the monetary worth of all final goods and services produced within a nation's borders over a specific period. 
