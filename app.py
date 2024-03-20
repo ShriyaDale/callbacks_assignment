@@ -8,8 +8,6 @@ import plotly.express as px
 
 stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css'] # loading the CSS stylesheet (referenced the class6 material)
 
-app = Dash(__name__, external_stylesheets=stylesheets) # initialize the app using the stylesheet for stylistic features
-
 df = pd.read_csv("gdp_pcap.csv")
 #use the pd.melt function to reshapes the dataframe into a long table with one row for each each column (will help when making the dash components)
 df_long = pd.melt(df, id_vars=['country'], var_name='year', value_name='gdpPercap') 
@@ -21,7 +19,11 @@ y_ticks = list(range(0, int(df_long_sorted['gdpPercap'].max()) + 1000, 1000)) #s
 x_ticks = list(range(min_year, max_year + 1, 25)) #sets a new variable for the x-axis (this allows for constant increments and sorts the x-axis by 50 years)
 df_long.head() #displays the dataset to see if I implemented the pd.melt command properly
 
-import dash
+app = Dash(__name__, external_stylesheets=stylesheets) # initialize the app using the stylesheet for stylistic features
+server = app.server
+
+app.title = "GDP Per Capita Analysis" 
+
 app.layout = html.Div([ #parent div
     html.Div(style={'textAlign': 'center'}, children=[ #creates another div for the heading (text align indicates that the heading is in the center)
     html.H1("GDP per Capita Analysis")
