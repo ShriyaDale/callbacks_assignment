@@ -10,6 +10,7 @@ stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css'] # loading the CSS s
 
 app = Dash(__name__, external_stylesheets=stylesheets) # initialize the app using the stylesheet for stylistic features
 
+df = pd.read_csv("gdp_pcap.csv")
 #use the pd.melt function to reshapes the dataframe into a long table with one row for each each column (will help when making the dash components)
 df_long = pd.melt(df, id_vars=['country'], var_name='year', value_name='gdpPercap') 
 min_year = int(df_long['year'].min()) #creating the minimum year using the 'melted' version of the data set and the .min() function
