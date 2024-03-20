@@ -6,11 +6,9 @@ from dash import Dash, dcc, html, Input, Output
 import numpy as np
 import plotly.express as px
 
-# use pandas to read the csv file that is in the same file directory
-df = pd.read_csv("gdp_pcap.csv")
-df.head() #display the first five rows of the dataset
+stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css'] # loading the CSS stylesheet (referenced the class6 material)
 
-#this code cell is for all the preprocessing of the data that is done to ensure that the components are visually enhancing
+app = Dash(__name__, external_stylesheets=stylesheets) # initialize the app using the stylesheet for stylistic features
 
 #use the pd.melt function to reshapes the dataframe into a long table with one row for each each column (will help when making the dash components)
 df_long = pd.melt(df, id_vars=['country'], var_name='year', value_name='gdpPercap') 
@@ -22,19 +20,25 @@ y_ticks = list(range(0, int(df_long_sorted['gdpPercap'].max()) + 1000, 1000)) #s
 x_ticks = list(range(min_year, max_year + 1, 25)) #sets a new variable for the x-axis (this allows for constant increments and sorts the x-axis by 50 years)
 df_long.head() #displays the dataset to see if I implemented the pd.melt command properly
 
-stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css'] # loading the CSS stylesheet (referenced the class6 material)
-
-app = Dash(__name__, external_stylesheets=stylesheets) # initialize the app using the stylesheet for stylistic features
-
 import dash
 app.layout = html.Div([ #parent div
     html.Div(style={'textAlign': 'center'}, children=[ #creates another div for the heading (text align indicates that the heading is in the center)
     html.H1("GDP per Capita Analysis")
     ]),
+    #app description is below 
+     dcc.Markdown('''
+        # Gapminder GDP Per Capita Analysis
 
-    #app description is below
-    html.P("The app leverages the extensive Gapminder dataset, which encompasses a comprehensive collection of economic indicators, including but not limited to the Gross Domestic Product (GDP) of most countries. GDP serves as the cornerstone metric for evaluating the monetary worth of all final goods and services produced within a nation's borders over a specific period. This dashboard presents users with a dropdown menu featuring an array of countries, enabling the selection of multiple nations for comparative analysis. Additionally, a slider grants users the flexibility to choose a range of years, facilitating longitudinal examination of GDP trends. The graphical representation adjusts based on the dropdown and slider components. Overall, this design choice enhances user comprehension and facilitates easy interpretation of complex data sets. As a result, users can effortlessly explore and analyze GDP variations across different countries and timeframes."),
-
+        The app leverages the extensive Gapminder dataset, which encompasses a comprehensive collection of economic indicators, 
+        including but not limited to the Gross Domestic Product (GDP) of most countries. GDP serves as the cornerstone metric for 
+        evaluating the monetary worth of all final goods and services produced within a nation's borders over a specific period. 
+        This dashboard presents users with a dropdown menu featuring an array of countries, enabling the selection of multiple 
+        nations for comparative analysis. Additionally, a slider grants users the flexibility to choose a range of years, 
+        facilitating longitudinal examination of GDP trends. The graphical representation adjusts based on the dropdown and
+        slider components. Overall, this design choice enhances user comprehension and facilitates easy interpretation of 
+        complex data sets. As a result, users can effortlessly explore and analyze GDP variations across different countries and timeframes."
+    ''', style={'textAlign': 'center'}),
+    
     html.Div(className='row', children=[ #another div for the drop down component
         html.Div(className='six columns', style = {'padding': '10px'},children=[ # className = 'six columns' allows for the components to be split; uses style components for padding and layout purposes
             dcc.Dropdown(
