@@ -93,6 +93,7 @@ def update_graph(selected_countries, selected_years):
     
     return fig #display new figure
 
-if __name__ == '__main__':
-    app.run_server(debug=True)
+server = app.server
 
+if __name__ == '__main__':
+    server.run(debug=False)
