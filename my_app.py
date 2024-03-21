@@ -14,7 +14,7 @@ df_long = pd.melt(df, id_vars=['country'], var_name='year', value_name='gdpPerca
 min_year = int(df_long['year'].min()) #creating the minimum year using the 'melted' version of the data set and the .min() function
 max_year = int(df_long['year'].max()) #creating the maximum year using the 'melted' version of the data set and the .max() function
 df_long['gdpPercap'] = pd.to_numeric(df_long['gdpPercap'], errors='coerce') #convert the gdp into a numeric value (used errors = 'coerce' through a stack overflow thread)
-df_long_sorted = df_long.sort_values(by=['year','gdpPercap']) #sort the values by year and gdpPercap which will be used will for the graph below
+df_long_sorted = df_long.sort_values(by=['year','gdpPercap']) #sort the values by year and gdpPercap which will be used for the graph below
 y_ticks = list(range(0, int(df_long_sorted['gdpPercap'].max()) + 1000, 1000)) #sets a new variable for the y-axis (this gets rid of the "k" and allows for constant increments)
 x_ticks = list(range(min_year, max_year + 1, 25)) #sets a new variable for the x-axis (this allows for constant increments and sorts the x-axis by 50 years)
 df_long.head() #displays the dataset to see if I implemented the pd.melt command properly
